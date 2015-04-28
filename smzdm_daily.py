@@ -17,8 +17,9 @@ class SMZDMDailyException(Exception):
         return str(req)
     
 class SMZDMDaily(object):
-    LOGIN_URL = 'http://www.smzdm.com/user/login/jsonp_check'
-    CHECKIN_URL = 'http://www.smzdm.com/user/qiandao/jsonp_checkin'
+    BASE_URL = 'http://www.smzdm.com'
+    LOGIN_URL = BASE_URL + '/user/login/jsonp_check'
+    CHECKIN_URL = BASE_URL + '/user/qiandao/jsonp_checkin'
     
     def __init__(self, username, password):
         self.username = username
@@ -36,7 +37,7 @@ class SMZDMDaily(object):
             'user_pass': self.password,
         }
         
-        r = self.session.get(self.LOGIN_URL, headers=headers)
+        r = self.session.get(self.BASE_URL, headers=headers)
         
         # 处理值得买防爬虫机制
         if r.status_code == 521:
