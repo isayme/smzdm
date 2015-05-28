@@ -11,9 +11,9 @@
 最后, 只需要添加`cron`定时任务即可!
 
 # 关于脚本 #
-2015年(具体什么时候我也不知道), 值得买引入防爬虫机制, 第一次访问页面会返回`521`错误, 页面内容为`JavaScript`脚本, 此脚本会设置一个名为`__jsl_clearance`的`Cookie`, 并刷新页面.
+~~2015年(具体什么时候我也不知道), 值得买引入防爬虫机制, 第一次访问页面会返回`521`错误, 页面内容为`JavaScript`脚本, 此脚本会设置一个名为`__jsl_clearance`的`Cookie`, 并刷新页面.~~
 
-此机制直接导致我[之前的签到脚本](https://gist.github.com/isayme/5efc1bf611da29a3121c)无效, 所以才有了今天的版本.
+~~此机制直接导致我[之前的签到脚本](https://gist.github.com/isayme/5efc1bf611da29a3121c)无效, 所以才有了今天的版本.~~
 
 # 联系我 #
 `email`: isaymeorg # gmail.com
