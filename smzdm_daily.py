@@ -12,50 +12,51 @@ SMZDM_PASSWORD = '' # password
 class SMZDMDailyException(Exception):
     def __init__(self, req):
         self.req = req
-    
+
     def __str__(self):
-        return str(req)
-    
+        return str(self.req)
+
 class SMZDMDaily(object):
-    BASE_URL = 'http://www.smzdm.com'
-    LOGIN_URL = BASE_URL + '/user/login/jsonp_check'
-    CHECKIN_URL = BASE_URL + '/user/qiandao/jsonp_checkin'
-    
+    BASE_URL = 'http://zhiyou.smzdm.com'
+    LOGIN_URL = BASE_URL + '/user/login/ajax_check'
+    CHECKIN_URL = BASE_URL + '/user/checkin/jsonp_checkin'
+
     def __init__(self, username, password):
         self.username = username
         self.password = password
         self.session = requests.Session()
-        
+
     def checkin(self):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; rv:20.0) Gecko/20100101 Firefox/20.0',
-            'Host': 'www.smzdm.com',
+            'Host': 'zhiyou.smzdm.com',
+            'Upgrade-Insecure-Requests': 1
         }
-        
+
         params = {
-            'user_login': self.username,
-            'user_pass': self.password,
+            'username': self.username,
+            'password': self.password,
         }
-        
+
         r = self.session.get(self.BASE_URL, headers=headers)
-        r = self.session.get(self.LOGIN_URL, params=params, headers=headers)
+        r = self.session.post(self.LOGIN_URL, data=params, headers=headers)
         r = self.session.get(self.CHECKIN_URL, headers=headers)
         if r.status_code != 200:
             raise SMZDMDailyException(r)
-            
-        data = r.text[1:-1]
+
+        data = r.text
         jdata = json.loads(data)
-        
+
         return jdata
-        
+
 if __name__ == '__main__':
     try:
         smzdm = SMZDMDaily(SMZDM_USERNAME, SMZDM_PASSWORD)
         result = smzdm.checkin()
     except SMZDMDailyException as e:
-        print e
+        print('fail', e)
     except Exception as e:
-        print e
+        print('fail', e)
     else:
-        print result
-        
+        print('success', result)
+
