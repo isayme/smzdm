@@ -29,8 +29,7 @@ class SMZDMDaily(object):
     def checkin(self):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; rv:20.0) Gecko/20100101 Firefox/20.0',
-            'Host': 'zhiyou.smzdm.com',
-            'Upgrade-Insecure-Requests': 1
+            'Host': 'zhiyou.smzdm.com'
         }
 
         params = {
@@ -50,6 +49,9 @@ class SMZDMDaily(object):
         return jdata
 
 if __name__ == '__main__':
+    if SMZDM_USERNAME is '' or SMZDM_PASSWORD is '':
+        print('SMZDM_USERNAME and SMZDM_PASSWORD required')
+        sys.exit()
     try:
         smzdm = SMZDMDaily(SMZDM_USERNAME, SMZDM_PASSWORD)
         result = smzdm.checkin()
