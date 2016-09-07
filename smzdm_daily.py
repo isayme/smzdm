@@ -37,9 +37,9 @@ class SMZDMDaily(object):
             'password': self.password,
         }
 
-        r = self.session.get(self.BASE_URL, headers=headers)
-        r = self.session.post(self.LOGIN_URL, data=params, headers=headers)
-        r = self.session.get(self.CHECKIN_URL, headers=headers)
+        r = self.session.get(self.BASE_URL, headers=headers, verify=False)
+        r = self.session.post(self.LOGIN_URL, data=params, headers=headers, verify=False)
+        r = self.session.get(self.CHECKIN_URL, headers=headers, verify=False)
         if r.status_code != 200:
             raise SMZDMDailyException(r)
 
