@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import json
 import sys
 import requests
 import re
 
-SMZDM_USERNAME = '' # username or email
-SMZDM_PASSWORD = '' # password
+SMZDM_USERNAME = os.getenv('SMZDM_DAILY_USERNAME') or '' # username or email
+SMZDM_PASSWORD = os.getenv('SMZDM_DAILY_PASSWORD') or '' # password
 
 class SMZDMDailyException(Exception):
     def __init__(self, req):
@@ -29,7 +30,8 @@ class SMZDMDaily(object):
     def checkin(self):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; rv:20.0) Gecko/20100101 Firefox/20.0',
-            'Host': 'zhiyou.smzdm.com'
+            'Host': 'zhiyou.smzdm.com',
+            'Referer': 'http://www.smzdm.com/'
         }
 
         params = {
