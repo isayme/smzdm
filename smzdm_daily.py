@@ -18,7 +18,7 @@ class SMZDMDailyException(Exception):
         return str(self.req)
 
 class SMZDMDaily(object):
-    BASE_URL = 'http://zhiyou.smzdm.com'
+    BASE_URL = 'https://zhiyou.smzdm.com'
     LOGIN_URL = BASE_URL + '/user/login/ajax_check'
     CHECKIN_URL = BASE_URL + '/user/checkin/jsonp_checkin'
 
@@ -39,9 +39,9 @@ class SMZDMDaily(object):
             'password': self.password,
         }
 
-        r = self.session.get(self.BASE_URL, headers=headers, verify=False)
-        r = self.session.post(self.LOGIN_URL, data=params, headers=headers, verify=False)
-        r = self.session.get(self.CHECKIN_URL, headers=headers, verify=False)
+        r = self.session.get(self.BASE_URL, headers=headers, verify=True)
+        r = self.session.post(self.LOGIN_URL, data=params, headers=headers, verify=True)
+        r = self.session.get(self.CHECKIN_URL, headers=headers, verify=True)
         if r.status_code != 200:
             raise SMZDMDailyException(r)
 
